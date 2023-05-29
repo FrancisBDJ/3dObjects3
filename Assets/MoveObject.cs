@@ -9,15 +9,8 @@ using UnityEngine.InputSystem;
 
 public class MoveObject : MonoBehaviour
 {
-    
+    public float speed = 10f;
    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Touchscreen.current.primaryTouch.press.isPressed)
@@ -31,9 +24,10 @@ public class MoveObject : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 100f, LayerMask.GetMask("RaycastTarget")))
             {
+                
                 touchPosition.z = hitInfo.transform.position.z;
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(touchPosition);
-                Vector3 newPosition = new Vector3(worldPosition.x * 2.5f, 0, touchPosition.z) ;
+                Vector3 newPosition = new Vector3(worldPosition.x * speed, hitInfo.transform.position.y, touchPosition.z) ;
                 hitInfo.transform.position = newPosition;
             }
         }
